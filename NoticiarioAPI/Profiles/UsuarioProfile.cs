@@ -10,5 +10,6 @@ public class UsuarioProfile : Profile
 	{
 		CreateMap<CreateUsuarioDTO, Usuario>();
 		CreateMap<Usuario, ReadUsuarioDTO>();
+		CreateMap<UpdateUsuarioDTO, Usuario>();
 	}
 }

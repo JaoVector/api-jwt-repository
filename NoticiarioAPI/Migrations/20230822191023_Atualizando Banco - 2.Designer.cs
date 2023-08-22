@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NoticiarioAPI.Context;
 
@@ -11,9 +12,10 @@ using NoticiarioAPI.Context;
 namespace NoticiarioAPI.Migrations
 {
     [DbContext(typeof(NContext))]
-    partial class NContextModelSnapshot : ModelSnapshot
+    [Migration("20230822191023_Atualizando Banco - 2")]
+    partial class AtualizandoBanco2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

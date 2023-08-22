@@ -23,33 +23,33 @@ public class NoticiaController : ControllerBase
         _mapper = mapper;
     }
 
-    [Authorize(Roles = "employee")]
+    [Authorize(Roles = "employee, manager")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ReadNoticiaDTO>>> ListaNoticias([FromQuery] int skip = 0, [FromQuery] int take = 4)
     {
         var consulta = await _uof.NoticiaRepository.Lista(skip, take).ToListAsync();
 
-        if (consulta == null) throw new NotFoundException("Noticia não Econtrada");
+        if (consulta == null) throw new NotFoundException("Noticias não Econtradas");
 
         var noticias = _mapper.Map<List<ReadNoticiaDTO>>(consulta);
 
         return Ok(noticias);
     }
 
-    [Authorize(Roles = "employee")]
+    [Authorize(Roles = "employee, manager")]
     [HttpGet("{id}", Name = "Obter Noticia por ID")]
     public async Task<ActionResult<ReadNoticiaDTO>> PegaPorID(int id) 
     {
         var consulta = await _uof.NoticiaRepository.PegaPorID(i => i.Id == id);
 
-        if (consulta == null) throw new NotFoundException("Noticia não Econtrada");
+        if (consulta == null) throw new NotFoundException($"Noticia com Id {id} não Econtrada");
 
         ReadNoticiaDTO readNoticia = _mapper.Map<ReadNoticiaDTO>(consulta);
 
         return Ok(readNoticia);
     }
 
-    [Authorize(Roles = "employee")]
+    [Authorize(Roles = "employee, manager")]
     [HttpPost]
     public async Task<ActionResult> Add([FromBody] CreateNoticiaDTO createNoticia) 
     {
@@ -59,7 +59,9 @@ public class NoticiaController : ControllerBase
 
         await _uof.Commit();
 
-        return Ok(noticia);
+        ReadNoticiaDTO readNoticia = _mapper.Map<ReadNoticiaDTO>(noticia);
+
+        return Ok(readNoticia);
     }
 
     [Authorize(Roles = "manager")]
@@ -68,7 +70,7 @@ public class NoticiaController : ControllerBase
     {
         var consulta = await _uof.NoticiaRepository.PegaPorID(n => n.Id == id);
 
-        if (consulta == null) throw new BadRequestException("Noticia não Econtrada");
+        if (consulta == null) throw new BadRequestException($"Noticia com Id {id} não Econtrada");
 
         _uof.NoticiaRepository.Deleta(consulta);
 
@@ -79,17 +81,19 @@ public class NoticiaController : ControllerBase
 
     [Authorize(Roles = "manager")]
     [HttpPut("{id:int}")]
-    public async Task<ActionResult> Atualiza(int id, [FromBody] ReadNoticiaDTO readNoticia) 
+    public async Task<ActionResult> Atualiza(int id, [FromBody] UpdateNoticiaDTO upNoticia) 
     {
         var consulta = await _uof.NoticiaRepository.PegaPorID(n => n.Id == id);
 
-        if (consulta == null) return NotFound("Noticia Não Encontrada");
+        if (consulta == null) throw new NotFoundException($"Noticia com Id {id} não Econtrada");
 
-        _mapper.Map(readNoticia, consulta);
+        _mapper.Map(upNoticia, consulta);
 
         await _uof.Commit();
 
-        return Ok(consulta);
+        ReadNoticiaDTO readNoticia = _mapper.Map<ReadNoticiaDTO>(consulta);
+
+        return Ok(readNoticia);
 
     }
 }

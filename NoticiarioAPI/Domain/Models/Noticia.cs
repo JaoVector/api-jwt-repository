@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NoticiarioAPI.Domain.Models;
 
@@ -14,7 +15,7 @@ public class Noticia
     [StringLength(255)]
     public string? Descricao { get; set; }
     [Required]
-    [StringLength(255)]
+    [MaxLength]
     public string? Conteudo { get; set; }
     [Required]
     public DateTime DataPublicacao { get; set; } = DateTime.Now;

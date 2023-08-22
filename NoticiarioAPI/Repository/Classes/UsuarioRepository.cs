@@ -56,6 +56,4 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
 
     }
 
-    //https://www.youtube.com/watch?v=vAUXU0YIWlU&t=1s
-
 }

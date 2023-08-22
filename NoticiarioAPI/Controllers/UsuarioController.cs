@@ -33,26 +33,26 @@ public class UsuarioController : ControllerBase
         return Ok(usuario);
     }
 
-    [Authorize(Roles = "employee")]
+    [Authorize(Roles = "employee, manager")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ReadUsuarioDTO>>> ListaUsers([FromQuery] int skip = 0, [FromQuery] int take = 4)
     {
         var consulta = await _uof.UsuarioRepository.Lista(skip, take).ToListAsync();
 
-        if (consulta == null) throw new NotFoundException("Usuario não Econtrado");
+        if (consulta == null) throw new NotFoundException("Usuarios não Econtrados");
 
         var noticias = _mapper.Map<List<ReadUsuarioDTO>>(consulta);
 
         return Ok(noticias);
     }
 
-    [Authorize(Roles = "employee")]
+    [Authorize(Roles = "employee, manager")]
     [HttpGet("{id}", Name = "Obter Usuario por ID")]
     public async Task<ActionResult<ReadUsuarioDTO>> PegaPorID(int id)
     {
         var consulta = await _uof.UsuarioRepository.PegaPorID(i => i.Id == id);
 
-        if (consulta == null) throw new NotFoundException("Usuario não Econtrado");
+        if (consulta == null) throw new NotFoundException($"Usuario com Id {id} não Econtrado");
 
         ReadUsuarioDTO readNoticia = _mapper.Map<ReadUsuarioDTO>(consulta);
 
@@ -65,7 +65,7 @@ public class UsuarioController : ControllerBase
     {
         var consulta = await _uof.UsuarioRepository.PegaPorID(n => n.Id == id);
 
-        if (consulta == null) throw new BadRequestException("Usuario não Econtrado");
+        if (consulta == null) throw new BadRequestException($"Usuario com Id {id} não Econtrado");
 
         _uof.UsuarioRepository.Deleta(consulta);
 
@@ -76,13 +76,13 @@ public class UsuarioController : ControllerBase
 
     [Authorize(Roles = "manager")]
     [HttpPut("{id:int}")]
-    public async Task<ActionResult> Atualiza(int id, [FromBody] ReadUsuarioDTO readUser)
+    public async Task<ActionResult> Atualiza(int id, [FromBody] UpdateUsuarioDTO upUser)
     {
         var consulta = await _uof.UsuarioRepository.PegaPorID(n => n.Id == id);
 
-        if (consulta == null) throw new BadRequestException("Usuario não Econtrado");
+        if (consulta == null) throw new BadRequestException($"Usuario com Id {id} não Econtrado");
 
-        _mapper.Map(readUser, consulta);
+        _mapper.Map(upUser, consulta);
 
         await _uof.Commit();
 

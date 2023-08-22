@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NoticiarioAPI.Domain.Models;
 using NoticiarioAPI.Repository.Interfaces;
 
@@ -12,7 +11,7 @@ public class LoginController : ControllerBase
 
     private readonly IUnitOfWork _uof;
 
-    public LoginController(IUnitOfWork unitOf, IMapper mapper)
+    public LoginController(IUnitOfWork unitOf)
     {
         _uof = unitOf;
     }
