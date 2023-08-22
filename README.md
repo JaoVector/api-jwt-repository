@@ -62,7 +62,6 @@ PUT: https://localhost:7037/Usuario/{id}
 #### Corpo da Requisição:
 ```json
 {
-  "id": 0,
   "email": "string",
   "name": "string",
   "password": "string",
