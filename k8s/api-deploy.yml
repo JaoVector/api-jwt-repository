@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-noticia-container
-          image: jo4ovictor/api-noticia
+          image: jo4ovictor/api-noticia:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -30,6 +30,5 @@ spec:
     app: crud
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: LoadBalancer
+      port: 8080
+      targetPort: 80

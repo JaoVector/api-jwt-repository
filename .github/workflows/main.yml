@@ -23,7 +23,7 @@ jobs:
           context: ./NoticiarioAPI
           file: ./NoticiarioAPI/Dockerfile
           push: true
-          tags:
+          tags: |
             jo4ovictor/api-noticia:latest
 
   CD:
@@ -36,4 +36,20 @@ jobs:
         uses: Azure/login@v1.4.6
         with:
           creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
-        
+      - name: Azure Kubernetes set context
+        uses: Azure/aks-set-context@v3
+        with:
+          resource-group: rg-tech-api
+          cluster-name: techNoticia
+          
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v4.9
+        with:
+          manifests: |
+            k8s/pvc1.yml
+            k8s/sql-server-deploy.yml
+            k8s/api-deploy.yml
+          images: |
+            jo4ovictor/api-noticia:latest
+
+            
