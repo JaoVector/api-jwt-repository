@@ -23,10 +23,13 @@ spec:
         - name: ACCEPT_EULA
           value: "Y"
         - name: MSSQL_SA_PASSWORD
-          value: "joao360"
+          valueFrom:
+          secretKeyRef:
+              name: mssql
+              key: MSSQL_SA_PASSWORD
         volumeMounts:
         - name: mssqldb
-          mountPath: /var/opt/mssql/data
+          mountPath: /var/opt/mssql
       volumes:
       - name: mssqldb
         persistentVolumeClaim:
@@ -44,3 +47,4 @@ spec:
     - protocol: TCP
       port: 1433
       targetPort: 1433
+  type: LoadBalancer
