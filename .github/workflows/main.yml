@@ -1,0 +1,28 @@
+name: CI-CD
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter Código Fonte
+        uses: actions/checkout@v3.6.0
+
+      - name: Docker Login
+        uses: docker/login-action@v2.2.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USR }}
+          password: ${{ secrets.DOCKERHUB_PWD }}
+            
+      - name: Docker Build
+        uses: docker/build-push-action@v4.1.1
+        with:
+          context: ./NoticiarioAPI
+          file: ./NoticiarioAPI/Dockerfile
+          push: true
+          tags:
+            jo4ovictor/api-noticia:v${{ github.run_number }}
+            jo4ovictor/api-noticia:latest
