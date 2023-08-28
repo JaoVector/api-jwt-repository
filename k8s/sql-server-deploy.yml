@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mssql
-        image: mcr.microsoft.com/mssql/server:2019-latest
+        image: mcr.microsoft.com/mssql/server:2022-latest
         ports:
         - containerPort: 1433
         env:
@@ -22,7 +22,7 @@ spec:
           value: "Developer"
         - name: ACCEPT_EULA
           value: "Y"
-        - name: SA_PASSWORD
+        - name: MSSQL_SA_PASSWORD
           value: "joao360"
         volumeMounts:
         - name: mssqldb
@@ -41,7 +41,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
