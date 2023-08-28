@@ -24,5 +24,4 @@ jobs:
           file: ./NoticiarioAPI/Dockerfile
           push: true
           tags:
-            jo4ovictor/api-noticia:v${{ github.run_number }}
             jo4ovictor/api-noticia:v1.1
