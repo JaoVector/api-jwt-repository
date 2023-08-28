@@ -8,7 +8,7 @@ kind: StorageClass
     storageaccounttype: Standard_LRS
     kind: Managed
 ---
-  kind: PersistentVolumeClaim
+kind: PersistentVolumeClaim
   apiVersion: v1
   metadata:
     name: mssql-pvc
