@@ -46,7 +46,6 @@ jobs:
         uses: Azure/k8s-deploy@v4.9
         with:
           manifests: |
-            k8s/pvc1.yml
             k8s/sql-server-deploy.yml
             k8s/api-deploy.yml
           images: |
