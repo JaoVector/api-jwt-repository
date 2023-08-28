@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-noticia-container
-          image: jo4ovictor/api-noticia
+          image: jo4ovictor/api-noticia:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
