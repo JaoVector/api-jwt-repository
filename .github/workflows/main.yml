@@ -23,7 +23,7 @@ jobs:
           context: ./NoticiarioAPI
           file: ./NoticiarioAPI/Dockerfile
           push: true
-          tags:
+          tags: |
             jo4ovictor/api-noticia:latest
 
   CD:
@@ -45,11 +45,11 @@ jobs:
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v4.9
         with:
-          manifests:
+          manifests: |
             k8s/pvc1.yml
             k8s/sql-server-deploy.yml
             k8s/api-deploy.yml
-          images:
+          images: |
             jo4ovictor/api-noticia:v${{ github.run_number }}
 
             
