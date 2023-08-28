@@ -7,7 +7,7 @@ kind: StorageClass
   parameters:
     storageaccounttype: Standard_LRS
     kind: Managed
-  ---
+---
   kind: PersistentVolumeClaim
   apiVersion: v1
   metadata:
