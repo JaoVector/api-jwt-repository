@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NoticiarioAPI.Context;
 using NoticiarioAPI.Domain.Models;
+using NoticiarioAPI.Exceptions;
 using NoticiarioAPI.Repository.Interfaces;
 
 namespace NoticiarioAPI.Controllers;
@@ -11,25 +15,45 @@ public class LoginController : ControllerBase
 
     private readonly IUnitOfWork _uof;
 
-    public LoginController(IUnitOfWork unitOf)
+    private readonly NContext _nContext;
+
+    public LoginController(IUnitOfWork unitOf, NContext context)
     {
         _uof = unitOf;
+        _nContext = context;
     }
 
     [HttpPost]
-	[Route("GeraToken")]
-	public ActionResult<TokenModel> AutenticaAsync(string email, string password) 
-	{
+    [Route("GeraToken")]
+    [AllowAnonymous]
+    public ActionResult<TokenModel> AutenticaAsync(string email, string password)
+    {
         var user = _uof.UsuarioRepository.AutenticaUser(email, password);
 
         if (user != null)
         {
             return Ok(user);
 
-        } else 
+        }
+        else
         {
             return Unauthorized();
         }
 
-	}
+    }
+
+    public ActionResult RunMigration()
+    {
+        try
+        {
+            _nContext.Database.Migrate();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+
+            throw new ErroNoBanco($"Houve um erro ao executar o Migrations {ex}");
+        }
+
+    }
 }

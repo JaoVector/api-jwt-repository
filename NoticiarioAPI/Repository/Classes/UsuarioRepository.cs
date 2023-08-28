@@ -40,6 +40,7 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
         return tokenHandler.WriteToken(token);
     }
 
+
     public TokenModel AutenticaUser(string email, string password)
     {
         var user = _context.Usuarios.Where(x => x.Email == email && x.Password == password).FirstOrDefault();
@@ -51,7 +52,7 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
         }
         else
         {
-            throw new NotFoundException("Usuario não encontrado");
+            throw new NotFoundException("Email ou Senha incorretos");
         }
 
     }
