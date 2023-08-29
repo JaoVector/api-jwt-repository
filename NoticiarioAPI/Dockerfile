@@ -5,7 +5,7 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
 COPY ["NoticiarioAPI.csproj", "./"]
