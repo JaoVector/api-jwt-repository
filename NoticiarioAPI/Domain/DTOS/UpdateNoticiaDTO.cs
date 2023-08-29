@@ -1,4 +1,6 @@
-﻿namespace NoticiarioAPI.Domain.DTOS;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NoticiarioAPI.Domain.DTOS;
 
 public class UpdateNoticiaDTO
 {

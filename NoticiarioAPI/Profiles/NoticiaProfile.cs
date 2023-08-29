@@ -10,6 +10,6 @@ public class NoticiaProfile : Profile
 	{
 		CreateMap<Noticia, ReadNoticiaDTO>().ForMember(x => x.DataPublicacao, opt => opt.MapFrom(src => ((DateTime)src.DataPublicacao).ToString("dd/MM/yyyy")));
 		CreateMap<CreateNoticiaDTO, Noticia>();
-		CreateMap<UpdateNoticiaDTO, Noticia>();
+        CreateMap<UpdateNoticiaDTO, Noticia>().ForMember(x => x.DataPublicacao, opt => opt.MapFrom(src => DateTime.Parse(src.DataPublicacao)));
 	}
 }
