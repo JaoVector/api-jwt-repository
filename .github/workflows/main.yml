@@ -24,6 +24,7 @@ jobs:
           file: ./NoticiarioAPI/Dockerfile
           push: true
           tags: |
+            jo4ovictor/api-noticia:v${{ github.run_number }}
             jo4ovictor/api-noticia:latest
 
   CD:
@@ -50,6 +51,6 @@ jobs:
             k8s/sql-server-deploy.yml
             k8s/api-deploy.yml
           images: |
-            jo4ovictor/api-noticia:latest
+            jo4ovictor/api-noticia:v${{ github.run_number }}
 
             
