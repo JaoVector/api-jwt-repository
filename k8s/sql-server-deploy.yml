@@ -18,14 +18,14 @@ spec:
         fsGroup: 10001
       containers:
       - name: mssql
-        image: mcr.microsoft.com/mssql/server:2022-latest
+        image: mcr.microsoft.com/mssql/server:2019-latest
         resources:
           requests:
-            memory: "2G"
-            cpu: "2000m"
+            memory: "1G"
+            cpu: "1000m"
           limits:
-            memory: "2G"
-            cpu: "2000m"
+            memory: "1G"
+            cpu: "1000m"
         ports:
         - containerPort: 1433
         env:
