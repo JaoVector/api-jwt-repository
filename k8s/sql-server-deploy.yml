@@ -18,7 +18,14 @@ spec:
         fsGroup: 10001
       containers:
       - name: mssql
-        image: mcr.microsoft.com/mssql/server:2019-latest
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "2000m"
+          limits:
+            memory: "2G"
+            cpu: "2000m"
         ports:
         - containerPort: 1433
         env:
@@ -26,26 +33,18 @@ spec:
           value: "Developer"
         - name: ACCEPT_EULA
           value: "Y"
-        - name: SA_PASSWORD
-          value: "joao360"
+        - name: MSSQL_SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mssql
+              key: MSSQL_SA_PASSWORD
         volumeMounts:
         - name: mssqldb
           mountPath: /var/opt/mssql
       volumes:
       - name: mssqldb
         persistentVolumeClaim:
-          claimName: mssql-pvc
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mssql-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
+          claimName: mssql-data
 ---
 apiVersion: v1
 kind: Service
@@ -58,3 +57,4 @@ spec:
     - protocol: TCP
       port: 1433
       targetPort: 1433
+  type: LoadBalancer
