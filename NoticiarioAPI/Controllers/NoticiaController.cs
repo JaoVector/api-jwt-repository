@@ -38,7 +38,7 @@ public class NoticiaController : ControllerBase
 
     [Authorize(Roles = "employee, manager")]
     [HttpGet("{id}", Name = "Obter Noticia por ID")]
-    public async Task<ActionResult<ReadNoticiaDTO>> PegaPorID(int id) 
+    public async Task<ActionResult<ReadNoticiaDTO>> PegaPorID(int id)
     {
         var consulta = await _uof.NoticiaRepository.PegaPorID(i => i.Id == id);
 
@@ -51,7 +51,7 @@ public class NoticiaController : ControllerBase
 
     [Authorize(Roles = "employee, manager")]
     [HttpPost]
-    public async Task<ActionResult> Add([FromBody] CreateNoticiaDTO createNoticia) 
+    public async Task<ActionResult> Add([FromBody] CreateNoticiaDTO createNoticia)
     {
         Noticia noticia = _mapper.Map<Noticia>(createNoticia);
 
@@ -66,7 +66,7 @@ public class NoticiaController : ControllerBase
 
     [Authorize(Roles = "manager")]
     [HttpDelete("{id:int}")]
-    public async Task<ActionResult> Deleta(int id) 
+    public async Task<ActionResult> Deleta(int id)
     {
         var consulta = await _uof.NoticiaRepository.PegaPorID(n => n.Id == id);
 
@@ -81,7 +81,7 @@ public class NoticiaController : ControllerBase
 
     [Authorize(Roles = "manager")]
     [HttpPut("{id:int}")]
-    public async Task<ActionResult> Atualiza(int id, [FromBody] UpdateNoticiaDTO upNoticia) 
+    public async Task<ActionResult> Atualiza(int id, [FromBody] UpdateNoticiaDTO upNoticia)
     {
         var consulta = await _uof.NoticiaRepository.PegaPorID(n => n.Id == id);
 
