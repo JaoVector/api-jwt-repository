@@ -22,10 +22,10 @@ spec:
         resources:
           requests:
             memory: "1G"
-            cpu: "3000m"
+            cpu: "2000m"
           limits:
             memory: "1G"
-            cpu: "3000m"
+            cpu: "2000m"
         ports:
         - containerPort: 1433
         env:
