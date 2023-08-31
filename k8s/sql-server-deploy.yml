@@ -19,16 +19,6 @@ spec:
       containers:
       - name: mssql
         image: mcr.microsoft.com/mssql/server:2019-latest
-<<<<<<< HEAD
-=======
-        resources:
-          requests:
-            memory: "2G"
-            cpu: "2000m"
-          limits:
-            memory: "2G"
-            cpu: "2000m"
->>>>>>> 09398446d6c4be17984db168be57f22caed99a83
         ports:
         - containerPort: 1433
         env:
