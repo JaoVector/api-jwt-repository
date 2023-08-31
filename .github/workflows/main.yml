@@ -40,8 +40,8 @@ jobs:
       - name: Azure Kubernetes set context
         uses: Azure/aks-set-context@v3
         with:
-          resource-group: rg-noticia
-          cluster-name: techNoticia
+          resource-group: rg-tech-plan
+          cluster-name: aks-github-actions
           
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v4.9
