@@ -265,7 +265,7 @@ jobs:
             <sua-imagem>:v${{ github.run_number }}
 ```
 #### 6 - Faça o dockerfile que irá gerar a imagem do container da Aplicação ASP Net Core. Use o código abaixo:
-```
+```dockerfile
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
 WORKDIR /app
 EXPOSE 80
@@ -290,7 +290,7 @@ ENTRYPOINT ["dotnet", "NoticiarioAPI.dll"]
 az ad sp create-for-rbac -n pipeline --role Owner --scopes /subscriptions/<sua-subscription>
 ```
 #### Com as informações que irão retornar será possível criar novas secrets.
-```
+```json
 {
   "appId": "---",
   "displayName": "pipeline",
@@ -319,7 +319,7 @@ dotnet ef database update
 #### 11 - Após esses passos basta efetuar o commit e push novamente para atualizar a string de conexão possibilitando a aplicação que estiver no Pod noticia-api-*** possa acessar o banco do pod mssql-deployment-***.
 
 ### Arquivo yml para criar o persistent volume claim onde irão ser gravadas as informações geradas pelas requisições HTTP.
-```
+```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -344,7 +344,7 @@ spec:
 
 ```
 ### Arquivo yml para criar o deploy do SQL Server utilizando a imagem da última versão de 2019, e gerando um serviço para expor o Pod.
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -407,7 +407,7 @@ spec:
   type: LoadBalancer
 ```
 ### Arquivo yml para gerar o Deploy da API e também gerando um serviço para expor a aplicação.
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
