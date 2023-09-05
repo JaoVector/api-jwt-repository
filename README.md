@@ -7,7 +7,7 @@
 ## 1 - Gerenciando Usuários
 #### Efetue o Cadastro do Usuário:
 ```
-POST: https://localhost:7037/Usuario
+POST: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario
 ```
 #### Corpo da Requisição:
 ```json
@@ -22,11 +22,11 @@ OBS: O atributo "role" é utilizado para especificar se o usuário é um "manage
 
 #### Consultando Usuários:
 ```
-GET: https://localhost:7037/Usuario
+GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario
 ```
 OBS: Para controlar a quantidade de dados no retorno, utilize o endpoint abaixo:
 ```
-GET: https://localhost:7037/Usuario?skip=0&take=5
+GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario?skip=0&take=5
 ```
 skip ira determinar o ponto de partida da consulta e o take a quantidades de items retornados.
 ```json
@@ -42,7 +42,7 @@ skip ira determinar o ponto de partida da consulta e o take a quantidades de ite
 
 #### Consultando Usuário por Id:
 ```
-GET: https://localhost:7037/Usuario/{id}
+GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario/{id}
 ```
 #### Corpo do Response:
 ```json
@@ -56,7 +56,7 @@ GET: https://localhost:7037/Usuario/{id}
 
 #### Atualizando Usuário:
 ```
-PUT: https://localhost:7037/Usuario/{id}
+PUT: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario/{id}
 ```
 #### Corpo da Requisição:
 ```json
@@ -70,13 +70,13 @@ PUT: https://localhost:7037/Usuario/{id}
 
 #### Deletando Usuário
 ```
-DELETE: https://localhost:7037/Usuario/{id}
+DELETE: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario/{id}
 ```
 
 ## 2 - Login.
 #### Efeutando o Login de Acordo com Usuário cadastrado:
 ```
-POST: https://localhost:7037/Login/GeraToken?email=joao@gmail&password=1234
+POST: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Login/GeraToken?email=joao@gmail&password=1234
 ```
 OBS: Substituir os valores de email= e password= de acordo com o usuário que deseja logar.
 #### Após efetuar o Login será retornado um Token para autenticação e autorização:
@@ -88,34 +88,34 @@ OBS: Substituir os valores de email= e password= de acordo com o usuário que de
 ### Endpoints que Usuários com role=employee podem utilizar:
 - Noticia
   ```
-  GET: https://localhost:7037/Noticia
-  GET: https://localhost:7037/Noticia/{id}
-  GET: https://localhost:7037/Noticia?skip=0&take=5
-  POST: https://localhost:7037/Noticia
+  GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia
+  GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia/{id}
+  GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia?skip=0&take=5
+  POST: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia
   ```
 - Usuario
   ```
-  POST: https://localhost:7037/Usuario
-  GET: https://localhost:7037/Usuario
-  GET: https://localhost:7037/Usuario?skip=0&take=5
-  GET: https://localhost:7037/Usuario/{id}
+  POST: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario
+  GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario
+  GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario?skip=0&take=5
+  GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario/{id}
   ```
 ### Endpoints que Usuários com role=manager podem utilizar:
 - Noticia
   ```
-  PUT: https://localhost:7037/Noticia/{id}
-  DELETE: https://localhost:7037/Noticia/{id}
+  PUT: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia/{id}
+  DELETE: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia/{id}
   ```
 - Usuario
   ```
-  PUT: https://localhost:7037/Usuario/{id}
-  DELETE: https://localhost:7037/Usuario/{id}
+  PUT: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario/{id}
+  DELETE: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Usuario/{id}
   ```
   
 ## 3 - Administrando as Notícias.
 #### Efetue o Cadastro da Noticia:
 ```
-POST: https://localhost:7037/Noticia
+POST: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia
 ```
 #### Corpo da Requisição:
 ```json
@@ -129,11 +129,11 @@ POST: https://localhost:7037/Noticia
 
 #### Efetue a Consulta de todas as Noticias:
 ```
-GET: https://localhost:7037/Noticia
+GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia
 ```
 OBS: Para controlar a quantidade de dados no retorno, utilize o endpoint abaixo:
 ```
-GET: https://localhost:7037/Noticia?skip=0&take=5
+GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia?skip=0&take=5
 ```
 skip ira determinar o ponto de partida da consulta e o take a quantidades de items retornados.
 #### Corpo de Response
@@ -156,7 +156,7 @@ CreateMap<Noticia, ReadNoticiaDTO>().ForMember(x => x.DataPublicacao, opt => opt
 
 #### Efetue a Consulta da Noticia por Id:
 ```
-GET: https://localhost:7037/Noticia/{id}
+GET: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia/{id}
 ```
 #### Corpo da Consulta
 ```json
@@ -172,7 +172,7 @@ GET: https://localhost:7037/Noticia/{id}
 
 #### Efetua a Edição da Noticia:
 ```
-PUT: https://localhost:7037/Noticia/{id}
+PUT: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia/{id}
 ```
 #### Corpo do Requisição para atualizar a Noticia
 ```json
@@ -187,7 +187,7 @@ PUT: https://localhost:7037/Noticia/{id}
 
 #### Efetue o Delete da Noticia
 ```
-DELETE: https://localhost:7037/Noticia/{id}
+DELETE: https://fiaptech.bhfac0e0drg2fzad.qatarcentral.azurecontainer.io/Noticia/{id}
 ```
 
 # Implantando API e Banco SQL Server em um Cluster Kubernetes (AKS) com GitHub - Actions
