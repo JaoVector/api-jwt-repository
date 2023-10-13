@@ -11,14 +11,12 @@ public class UnitOfWork : IUnitOfWork
     private UsuarioRepository _usuariosRepository;
 
     public NContext _nContext;
-    public IConfiguration _config;
-
-    public UnitOfWork(NContext nContext, IConfiguration configuration)
+   
+    public UnitOfWork(NContext nContext)
     {
-        _nContext = nContext;
-        _config = configuration;
+        _nContext = nContext;   
     }
-
+  
     public INoticiaRepository NoticiaRepository 
     {
         get 
@@ -31,7 +29,7 @@ public class UnitOfWork : IUnitOfWork
     {
         get 
         {
-            return _usuariosRepository = _usuariosRepository ?? new UsuarioRepository(_nContext, _config);
+            return _usuariosRepository = _usuariosRepository ?? new UsuarioRepository(_nContext);
         }
     }
 

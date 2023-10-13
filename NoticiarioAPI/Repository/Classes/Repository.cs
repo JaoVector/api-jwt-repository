@@ -9,7 +9,6 @@ namespace NoticiarioAPI.Repository.Classes;
 public class Repository<T> : IRepository<T> where T : class
 {
     protected NContext _context;
-    protected IConfiguration _configuration;
 
 	public Repository(NContext nContext)
 	{

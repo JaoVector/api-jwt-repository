@@ -15,7 +15,7 @@ public class UsuarioController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _uof;
-
+    
     public UsuarioController(IMapper mapper, IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
@@ -86,7 +86,7 @@ public class UsuarioController : ControllerBase
 
         await _uof.Commit();
 
-        return Ok(consulta);
+        return NoContent();
 
     }
 }

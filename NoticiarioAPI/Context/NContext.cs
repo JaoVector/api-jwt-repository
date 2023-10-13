@@ -5,6 +5,7 @@ namespace NoticiarioAPI.Context;
 
 public class NContext : DbContext
 {
+   
     public NContext(DbContextOptions<NContext> options) : base(options) { }
 
     public DbSet<Noticia> Noticias { get; set; }

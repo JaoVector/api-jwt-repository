@@ -12,12 +12,9 @@ public class LoginController : ControllerBase
 
     private readonly IUnitOfWork _uof;
 
-    private readonly NContext _nContext;
-
-    public LoginController(IUnitOfWork unitOf, NContext context)
+    public LoginController(IUnitOfWork unitOf)
     {
         _uof = unitOf;
-        _nContext = context;
     }
 
     [HttpPost]

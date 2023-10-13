@@ -12,18 +12,18 @@ namespace NoticiarioAPI.Repository.Classes;
 public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
 {
     private readonly NContext _context;
-    private readonly IConfiguration _config;
-
-    public UsuarioRepository(NContext nContext, IConfiguration config) : base(nContext)
+    
+    public UsuarioRepository(NContext nContext) : base(nContext)
     {
         _context = nContext;
-        _config = config;
     }
 
     private string GeraToken(Usuario user)
     {
+        var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        var jwtKey = config.GetValue<string>("Jwt:Key");
         var tokenHandler = new JwtSecurityTokenHandler();
-        var chave = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
+        var chave = Encoding.UTF8.GetBytes(jwtKey);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
@@ -39,7 +39,6 @@ public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-
 
     public TokenModel AutenticaUser(string email, string password)
     {

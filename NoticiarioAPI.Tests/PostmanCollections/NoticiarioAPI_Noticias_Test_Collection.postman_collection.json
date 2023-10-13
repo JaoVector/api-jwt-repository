@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "b26cb2f6-6fff-4704-a4b4-2968616da371",
+		"name": "NoticiarioAPI - Noticias Test Collection",
+		"description": "Coleção com todas as requests para efetuar as operações de Consulta, Criação, Atualização e de Delete para o controller NoticiaController.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20436088"
+	},
+	"item": [
+		{
+			"name": "Cria Usuario",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"email\", pm.variables.replaceIn('{{$randomEmail}}'));\r",
+							"pm.collectionVariables.set(\"name\", pm.variables.replaceIn('{{$randomFullName}}'));\r",
+							"pm.collectionVariables.set(\"password\", pm.variables.replaceIn('{{$randomPassword}}'));\r",
+							"pm.collectionVariables.set(\"role\", \"manager\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retorno OK Cadastro Usuario\", function() {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.json;\r",
+							"    pm.response.to.be.withBody;\r",
+							"});\r",
+							"\r",
+							"var result = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Verificar se o Id do Usuario foi gerado\", function() {\r",
+							"    pm.expect(result.id).not.undefined;\r",
+							"    pm.expect(result.id).not.null;\r",
+							"    pm.collectionVariables.set(\"id\", result.id)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"name\": \"{{name}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"role\": \"{{role}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7037/Usuario",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7037",
+					"path": [
+						"Usuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logar Usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retorno OK Usuario Logado\", function() {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.json;\r",
+							"    pm.response.to.be.withBody;\r",
+							"});\r",
+							"\r",
+							"var result = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Checar Token\", function() {\r",
+							"    pm.expect(result.token).not.undefined;\r",
+							"    pm.expect(result.token).not.null;\r",
+							"});\r",
+							"\r",
+							"pm.environment.set('token', result.token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7037/Login/GeraToken?email={{email}}&password={{password}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7037",
+					"path": [
+						"Login",
+						"GeraToken"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cria Noticia",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"titulo\", pm.variables.replaceIn('{{$randomLoremSentence}}'));\r",
+							"pm.collectionVariables.set(\"descricao\", pm.variables.replaceIn('{{$randomPhrase}}'));\r",
+							"pm.collectionVariables.set(\"conteudo\", pm.variables.replaceIn('{{$randomLoremParagraph}}'));\r",
+							"pm.collectionVariables.set(\"autor\", '{{$randomFullName}}');"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retorno OK Cadastra Noticia\", function() {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.json;\r",
+							"    pm.response.to.be.withBody;\r",
+							"});\r",
+							"\r",
+							"var result = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Verificar se o Id da Noticia foi gerado\", function() {\r",
+							"    pm.expect(result.id).not.undefined;\r",
+							"    pm.expect(result.id).not.null;\r",
+							"    pm.collectionVariables.set(\"id\", result.id)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"{{titulo}}\",\r\n  \"descricao\": \"{{descricao}}\",\r\n  \"conteudo\": \"{{conteudo}}\",\r\n  \"autor\": \"{{autor}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7037/Noticia",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7037",
+					"path": [
+						"Noticia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta Noticias",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retorno OK Consulta Noticias\", function() {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.json;\r",
+							"    pm.response.to.be.withBody;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7037/Noticia",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7037",
+					"path": [
+						"Noticia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta Noticia por ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retorno OK Consultar Noticia por ID\", function() {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.json;\r",
+							"    pm.response.to.be.withBody;\r",
+							"});\r",
+							"\r",
+							"var result = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Checar Id Noticia\", function() {\r",
+							"    pm.expect(result.id).not.undefined;\r",
+							"    pm.expect(result.id).not.null;\r",
+							"    pm.expect(result.id).to.eql(parseInt(pm.collectionVariables.get(\"id\")));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checar Titulo\", function() {\r",
+							"    pm.expect(result.titulo).to.eql(pm.collectionVariables.get(\"titulo\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checar Descricao\", function() {\r",
+							"    pm.expect(result.descricao).to.eql(pm.collectionVariables.get(\"descricao\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checar Conteudo\", function() {\r",
+							"    pm.expect(result.conteudo).to.eql(pm.collectionVariables.get(\"conteudo\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checar Autor\", function() {\r",
+							"    pm.expect(result.autor).not.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checar Data Publicacao\", function() {\r",
+							"    pm.expect(result.dataPublicacao).not.undefined;\r",
+							"    pm.expect(result.dataPublicacao).not.null;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7037/Noticia/{{id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7037",
+					"path": [
+						"Noticia",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza Noticia",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"function FormatDate(data)\r",
+							"{\r",
+							"    var form = data.substr(0, 10);\r",
+							"    var date = form.replaceAll('-', '/');\r",
+							"\r",
+							"    return date.split(\"\").reverse().join(\"\");\r",
+							"}\r",
+							"\r",
+							"var time = pm.variables.replaceIn('{{$isoTimestamp}}');\r",
+							"\r",
+							"var dataPub = FormatDate(time)\r",
+							"\r",
+							"pm.collectionVariables.set(\"titulo\", pm.variables.replaceIn('{{$randomLoremSentence}}'));\r",
+							"\r",
+							"pm.collectionVariables.set(\"descricao\", pm.variables.replaceIn('{{$randomPhrase}}'));\r",
+							"\r",
+							"pm.collectionVariables.set(\"conteudo\", pm.variables.replaceIn('{{$randomLoremParagraph}}'));\r",
+							"\r",
+							"pm.collectionVariables.set(\"data\", pm.variables.replaceIn(dataPub));\r",
+							"\r",
+							"pm.collectionVariables.set(\"autor\", '{{$randomFullName}}');\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retorno OK Atualizar Noticia\", function() {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.json;\r",
+							"    pm.response.to.be.withBody;\r",
+							"});\r",
+							"\r",
+							"var result = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Checar Id Noticia\", function() {\r",
+							"    pm.expect(result.id).not.undefined;\r",
+							"    pm.expect(result.id).not.null;\r",
+							"    pm.expect(result.id).to.eql(parseInt(pm.collectionVariables.get(\"id\")));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"{{titulo}}\",\r\n  \"descricao\": \"{{descricao}}\",\r\n  \"conteudo\": \"{{conteudo}}\",\r\n  \"dataPublicacao\": \"{{data}}\",\r\n  \"autor\": \"{{autor}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7037/Noticia/{{id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7037",
+					"path": [
+						"Noticia",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta Noticia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retorno OK Deletar Noticia\", function() {\r",
+							"    pm.response.to.have.status(204);\r",
+							"    pm.response.to.be.success;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7037/Noticia/{{id}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7037",
+					"path": [
+						"Noticia",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "email",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "role",
+			"value": ""
+		},
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "titulo",
+			"value": ""
+		},
+		{
+			"key": "descricao",
+			"value": ""
+		},
+		{
+			"key": "conteudo",
+			"value": ""
+		},
+		{
+			"key": "autor",
+			"value": ""
+		},
+		{
+			"key": "dataPublicacao",
+			"value": ""
+		},
+		{
+			"key": "data",
+			"value": ""
+		}
+	]
+}
